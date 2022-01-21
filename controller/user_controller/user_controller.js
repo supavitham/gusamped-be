@@ -25,7 +25,7 @@ module.exports.registerUser = async (req,res,next) => {
         console.log("regis")
 
         const resData = await Users.create({
-            id:2,
+            //id:3,
             firstName:firstName,
             lastName:lastName,
             phoneNumber:phoneNumber,
