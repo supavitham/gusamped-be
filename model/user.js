@@ -28,7 +28,7 @@ Users.init({
     schema: "gusamped_schema",
     //timestamps: false,
 });
-
+  
 
 // Users.init({
 //     //id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },

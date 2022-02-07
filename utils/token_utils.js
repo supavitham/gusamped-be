@@ -9,7 +9,7 @@ const signAccessToken = (req) => new Promise((resolve, reject) => {
     let secret = process.env.ACCESS_TOKEN_SECRET
     let jwtOption = {
         //audience: req.user.id.toString(),
-        expiresIn: '1m',
+        expiresIn: '24h',
         // algorithm: "RS256",
     }
     // jwt.sign(payload,secret,jwtOption,async (error,encode) => {
