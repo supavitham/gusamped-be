@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
 const { DB } = require('../database/gusamped.db');
-const { TypeProduct } = require('./type_product');
 
 class Category extends Model { }
 
@@ -22,6 +21,8 @@ Category.init({
     schema: "gusamped_schema",
 })
 
-Category.hasMany(TypeProduct);
+Category.associations = (models) => {
+    Category.hasMany(models.TypeProduct, { foreignKey: 'categoryID', as: 'type_product' })
+}
 
 module.exports = { Category }

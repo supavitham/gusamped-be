@@ -1,6 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
 const { DB } = require('../database/gusamped.db')
-const { Category } = require('./category')
 
 class TypeProduct extends Model { }
 
@@ -19,10 +18,12 @@ TypeProduct.init({
     },
 }, {
     sequelize: DB,
-    tableName: 'typeProduct',
+    tableName: 'type_product',
     schema: "gusamped_schema",
 })
 
-TypeProduct.belongsTo(Category);
+TypeProduct.associations = (models) => {
+    TypeProduct.belongsTo(models.Category, { foreignKey: 'categoryID' })
+}
 
 module.exports = { TypeProduct }

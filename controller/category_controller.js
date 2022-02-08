@@ -4,18 +4,25 @@ const { Sequelize, Op } = require("sequelize");
 module.exports.addCategory = async (req, res, next) => {
     try {
         const { nameTH, nameEN } = req.body;
-        console.log("---------- addCategory controller ----------", nameEN, nameTH)
+        console.log("---------- addCategory controller ----------")
 
-        const countRow = await Category.count();
+        let checkTablePromise = await new Promise((resolve, reject) => {
+            Category.count()
+                .then(res => {
+                    resolve(res)
+                }).catch(err => {
+                    resolve(false)
+                })
+        });
 
-        await Category.sync(countRow == 0 ? { force: true } : { alter: true })
+        await Category.sync(!checkTablePromise || checkTablePromise == 0 ? { force: true } : { alter: true })
 
         const resData = await Category.create({
             nameTH: nameTH,
             nameEN: nameEN,
         });
 
-        res.status(200).json(resData);
+        res.status(200).json({ message: "add category success", data: resData });
         next();
     } catch (error) {
         const err = Error(error);
