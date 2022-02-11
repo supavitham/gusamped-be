@@ -22,7 +22,7 @@ Category.init({
 }, {
     sequelize: DB,
     tableName: 'category',
-    schema: "gusamped_schema",
+    //schema: "gusamped_schema",
     modelName: "category",
 })
 

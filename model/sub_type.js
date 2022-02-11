@@ -23,7 +23,7 @@ SubType.init({
 }, {
     sequelize: DB,
     tableName: 'sub_type',
-    schema: "gusamped_schema",
+    //schema: "gusamped_schema",
     modelName: 'sub_type',
 })
 

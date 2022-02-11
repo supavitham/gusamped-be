@@ -25,7 +25,7 @@ TypeProduct.init({
 }, {
     sequelize: DB,
     tableName: 'type_product',
-    schema: "gusamped_schema",
+    //schema: "gusamped_schema",
     modelName: 'type_product',
 })
 

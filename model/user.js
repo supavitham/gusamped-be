@@ -25,7 +25,7 @@ Users.init({
 }, {
     sequelize: DB,
     tableName: 'users',
-    schema: "gusamped_schema",
+    //schema: "gusamped_schema",
     //timestamps: false,
 });
   

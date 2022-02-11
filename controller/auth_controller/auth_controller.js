@@ -10,24 +10,25 @@ module.exports.registerUser = async (req, res, next) => {
         const { email, password, phoneNumber, firstName, lastName } = req.body;
         console.log("---------- registerUser controller ----------")
 
-        const countRow = await Users.count();
+        let checkTableExist = await new Promise((resolve, reject) => {
+            Users.count()
+                .then(res => {
+                    resolve(res)
+                }).catch(err => {
+                    resolve(false)
+                })
+        });
 
-        // const checkEmail = await Users.findOne({
-        //     where: {
-        //         email: {
-        //             [Op.eq]: email
-        //         }
-        //     }
-        // });
-
-        const checkEmailRes = await checkEmail(email);
-
-        if (checkEmailRes != null) throw 'email already exists'
-
+        if(checkTableExist != false){
+            const checkEmailRes = await checkEmail(email);
+            if (checkEmailRes != null) throw 'email already exists'
+    
+        }
+    
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
 
-        await Users.sync(countRow == 0 ? { force: true } : { alter: true })
+        await Users.sync(!checkTableExist || checkTableExist == 0 ? { force: true } : { alter: true })
 
         const resData = await Users.create({
             //id:3,
