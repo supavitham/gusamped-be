@@ -2,7 +2,6 @@ const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const routeApi = require("./routers/index");
-const  {DB} = require('./database/gusamped.db')
 
 /// Middleware
 const errorHandler = require("./middleware/errorHandler");
