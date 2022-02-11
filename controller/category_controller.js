@@ -43,7 +43,7 @@ module.exports.getCategory = async (req, res, next) => {
             where: Sequelize.where(Sequelize.fn('concat', Sequelize.col("nameTH"), Sequelize.col("nameEN")), {
                 [Op.iLike]: `%${search}%`,
             })
-        }); 
+        });
 
         res.status(200).json(resData);
         next();
