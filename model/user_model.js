@@ -4,7 +4,6 @@ const { DB } = require('../database/gusamped.db')
 class Users extends Model { otherPublicField }
 
 Users.init({
-    //id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
     id: { type: DataTypes.UUID, primaryKey: true, allowNull: false, defaultValue: DataTypes.UUIDV4 },
     firstName: { type: DataTypes.STRING, allowNull: true },
     lastName: { type: DataTypes.STRING, allowNull: true },

@@ -1,6 +1,6 @@
 const express = require("express");
 const route = express.Router();
-const { addSubType, updateSubType, getSubType } = require('../controller/sub_type.controller')
+const { addSubType, updateSubType, getSubType } = require('../controller/sub_type_controller')
 const { authenticateAccessToken } = require('../middleware/authenticateToken')
 
 route.post('', authenticateAccessToken, addSubType)

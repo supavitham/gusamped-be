@@ -1,4 +1,4 @@
-const { Category } = require("../model/category");
+const { Category } = require("../model/category_model");
 const { Sequelize, Op } = require("sequelize");
 
 module.exports.addCategory = async (req, res, next) => {
@@ -6,7 +6,7 @@ module.exports.addCategory = async (req, res, next) => {
         const { nameTH, nameEN } = req.body;
         console.log("---------- addCategory controller ----------")
 
-        let checkTablePromise = await new Promise((resolve, reject) => {
+        let checkTableExist = await new Promise((resolve, reject) => {
             Category.count()
                 .then(res => {
                     resolve(res)
@@ -15,7 +15,7 @@ module.exports.addCategory = async (req, res, next) => {
                 })
         });
 
-        await Category.sync(!checkTablePromise || checkTablePromise == 0 ? { force: true } : { alter: true })
+        await Category.sync(!checkTableExist || checkTableExist == 0 ? { force: true } : { alter: true })
 
         const resData = await Category.create({
             nameTH: nameTH,

@@ -10,12 +10,12 @@ const sequelize = new Sequelize(
     dialect: development.dialect,
     timezone: "+07:00",
     logging: true,
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false
-      }
-    },
+    // dialectOptions: {
+    //   ssl: {
+    //     require: true,
+    //     rejectUnauthorized: false
+    //   }
+    // },
   }
 );
 

@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const { Sequelize, QueryTypes, Op } = require("sequelize");
 const { DB } = require("../../database/gusamped.db");
-const { Users } = require("../../model/user");
+const { Users } = require("../../model/user_model");
 const bcrypt = require("bcrypt");
 const { checkEmail } = require("../../utils/check_utils")
 

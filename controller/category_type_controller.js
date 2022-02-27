@@ -1,13 +1,13 @@
-const { TypeProduct } = require("../model/type_product");
+const { CategoryType } = require("../model/category_type_model");
 const { Sequelize, Op } = require("sequelize");
 
-module.exports.addTypeProduct = async (req, res, next) => {
+module.exports.addCategoryType = async (req, res, next) => {
     try {
         const { nameTH, nameEN, categoryID } = req.body;
-        console.log("---------- addTypeProduct controller ----------")
+        console.log("---------- addCategoryType controller ----------")
 
-        let checkTablePromise = await new Promise((resolve, reject) => {
-            TypeProduct.count()
+        let checkTableExist = await new Promise((resolve, reject) => {
+            CategoryType.count()
                 .then(res => {
                     resolve(res)
                 }).catch(err => {
@@ -15,15 +15,15 @@ module.exports.addTypeProduct = async (req, res, next) => {
                 })
         });
 
-        await TypeProduct.sync(!checkTablePromise || checkTablePromise == 0 ? { force: true } : { alter: true })
+        await CategoryType.sync(!checkTableExist || checkTableExist == 0 ? { force: true } : { alter: true })
 
-        const resData = await TypeProduct.create({
+        const resData = await CategoryType.create({
             nameTH: nameTH,
             nameEN: nameEN,
             categoryID: categoryID || null,
         });
 
-        res.status(200).json({ message: "add type success", data: resData });
+        res.status(200).json({ message: "add category type success", data: resData });
         next();
     } catch (error) {
         const err = Error(error);
@@ -32,21 +32,27 @@ module.exports.addTypeProduct = async (req, res, next) => {
     }
 }
 
-module.exports.updateTypeProduct = async (req, res, next) => {
+module.exports.updateCategoryType = async (req, res, next) => {
     try {
         const { id } = req.query;
         const { nameTH, nameEN, categoryID } = req.body;
-        console.log("---------- updateTypeProduct controller ----------")
+        console.log("---------- updateCategoryType controller ----------")
 
-        await TypeProduct.sync({ alter: true })
+        await CategoryType.sync({ alter: true })
 
-        const resData = await TypeProduct.update({
+        const resData = await CategoryType.update({
             nameTH: nameTH,
             nameEN: nameEN,
             categoryID: categoryID || null,
 
         }, { where: { id: id } });
-        res.status(200).json({ message: "update type success" });
+
+        if (resData[0] == 1) {
+            res.status(200).json({ message: "update category type success" });
+        } else if (resData[0] == 0) {
+            throw `can't find id ${id}`;
+        }
+
         next();
     } catch (error) {
         const err = Error(error);
@@ -55,15 +61,15 @@ module.exports.updateTypeProduct = async (req, res, next) => {
     }
 }
 
-module.exports.getTypeProduct = async (req, res, next) => {
+module.exports.getCategoryType = async (req, res, next) => {
     try {
         const { search, categoryID } = req.query;
-        console.log("---------- getTypeProduct controller ----------", req.query)
+        console.log("---------- getCategoryType controller ----------", req.query)
         var resData;
 
         if (categoryID == null || categoryID == '') {
 
-            resData = await TypeProduct.findAll({
+            resData = await CategoryType.findAll({
                 where: Sequelize.where(Sequelize.fn('concat', Sequelize.col("nameTH"), Sequelize.col("nameEN")), {
                     [Op.iLike]: `%${search}%`,
                 }),
@@ -73,7 +79,7 @@ module.exports.getTypeProduct = async (req, res, next) => {
             });
         }
         else if ((search == null || search == '') && (categoryID != null || categoryID != '')) {
-            resData = await TypeProduct.findAll({
+            resData = await CategoryType.findAll({
                 where: {
                     categoryID: {
                         [Op.eq]: categoryID

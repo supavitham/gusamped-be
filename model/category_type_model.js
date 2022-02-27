@@ -1,15 +1,15 @@
 const { Model, DataTypes } = require('sequelize')
 const { DB } = require('../database/gusamped.db')
 
-class TypeProduct extends Model {
+class CategoryType extends Model {
 
     static associate(models) {
         this.belongsTo(models.Category, { foreignKey: 'categoryID', as: 'category' });
-        this.hasMany(models.SubType, { foreignKey: 'typeProductID', as: 'sub_type' });
+        this.hasMany(models.SubType, { foreignKey: 'categoryTypeID', as: 'sub_type' });
     }
 }
 
-TypeProduct.init({
+CategoryType.init({
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
     nameTH: { type: DataTypes.STRING, allowNull: false },
     nameEN: { type: DataTypes.STRING, allowNull: false },
@@ -24,14 +24,13 @@ TypeProduct.init({
     },
 }, {
     sequelize: DB,
-    tableName: 'type_product',
-    //schema: "gusamped_schema",
-    modelName: 'type_product',
+    tableName: 'category_type',
+    modelName: 'category_type',
 })
 
 // TypeProduct.associate = (models) => {
 //     TypeProduct.belongsTo(models.Category, { foreignKey: 'categoryID', as: 'category' })
-//     //Model.TypeProduct.hasMany(Model.Subtype, { foreignKey: 'typeProductID', as: 'sub_type' })
+//     //Model.TypeProduct.hasMany(Model.Subtype, { foreignKey: 'categoryTypeID', as: 'sub_type' })
 // }
 
-module.exports = { TypeProduct }
+module.exports = { CategoryType }

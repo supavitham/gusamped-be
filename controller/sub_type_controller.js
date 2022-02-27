@@ -1,10 +1,10 @@
-const { SubType } = require("../model/sub_type");
+const { SubType } = require("../model/sub_type_model");
 const { Sequelize, Op } = require("sequelize");
 
 
 module.exports.addSubType = async (req, res, next) => {
     try {
-        const { nameTH, nameEN, typeProductID } = req.body;
+        const { nameTH, nameEN, categoryTypeID } = req.body;
         console.log("---------- addSubType controller ----------")
 
         let checkTableExist = await new Promise((resolve, reject) => {
@@ -21,10 +21,10 @@ module.exports.addSubType = async (req, res, next) => {
         const resData = await SubType.create({
             nameTH: nameTH,
             nameEN: nameEN,
-            typeProductID: typeProductID || null,
+            categoryTypeID: categoryTypeID || null,
         });
 
-        res.status(200).json({ message: "add sub-type success", data: resData });
+        res.status(200).json({ message: "add sub type success", data: resData });
         next();
     } catch (error) {
         const err = Error(error);
@@ -36,7 +36,7 @@ module.exports.addSubType = async (req, res, next) => {
 module.exports.updateSubType = async (req, res, next) => {
     try {
         const { id } = req.query;
-        const { nameTH, nameEN, typeProductID } = req.body;
+        const { nameTH, nameEN, categoryTypeID } = req.body;
         console.log("---------- updateSubType controller ----------")
 
         await SubType.sync({ alter: true })
@@ -44,11 +44,17 @@ module.exports.updateSubType = async (req, res, next) => {
         const resData = await SubType.update({
             nameTH: nameTH,
             nameEN: nameEN,
-            typeProductID: typeProductID || null,
+            categoryTypeID: categoryTypeID || null,
 
         }, { where: { id: id } });
 
-        res.status(200).json({ message: "update sub-type success" });
+        if (resData[0] == 1) {
+            res.status(200).json({ message: "update sub type success" });
+        } else if (resData[0] == 0) {
+            throw `can't find id ${id}`;
+        }
+
+        res.status(200).json({ message: "update sub type success" });
         next();
     } catch (error) {
         const err = Error(error);
@@ -59,11 +65,11 @@ module.exports.updateSubType = async (req, res, next) => {
 
 module.exports.getSubType = async (req, res, next) => {
     try {
-        const { search, typeProductID } = req.query;
+        const { search, categoryTypeID } = req.query;
         console.log("---------- getSubType controller ----------", req.query)
         var resData;
 
-        if (typeProductID == null || typeProductID == '') {
+        if (categoryTypeID == null || categoryTypeID == '') {
 
             resData = await SubType.findAll({
                 where: Sequelize.where(Sequelize.fn('concat', Sequelize.col("nameTH"), Sequelize.col("nameEN")), {
@@ -74,11 +80,11 @@ module.exports.getSubType = async (req, res, next) => {
                 ]
             });
         }
-        else if ((search == null || search == '') && (typeProductID != null || typeProductID != '')) {
+        else if ((search == null || search == '') && (categoryTypeID != null || categoryTypeID != '')) {
             resData = await SubType.findAll({
                 where: {
-                    typeProductID: {
-                        [Op.eq]: typeProductID
+                    categoryTypeID: {
+                        [Op.eq]: categoryTypeID
                     }
                 },
                 order: [

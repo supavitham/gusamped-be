@@ -1,5 +1,5 @@
 const { Sequelize, QueryTypes, Op } = require("sequelize");
-const { Users } = require("../model/user");
+const { Users } = require("../model/user_model");
 
 module.exports = {
     checkEmail: (email) => new Promise((resolve, rejects) => {

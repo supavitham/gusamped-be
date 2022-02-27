@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 const { Sequelize, QueryTypes } = require("sequelize");
-const { Users } = require("../../model/user");
+const { Users } = require("../../model/user_model");
 
 module.exports.getUser = async (req, res, next) => {
     try {
