@@ -10,8 +10,16 @@ Users.init({
     phoneNumber: { type: DataTypes.STRING, allowNull: false },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: { type: DataTypes.STRING, allowNull: false },
-    createdAt: { type: 'TIMESTAMP', defaultValue: DB.literal('CURRENT_TIMESTAMP'), allowNull: true, field: "created_at" },
-    updatedAt: { type: 'TIMESTAMP', defaultValue: DB.literal('CURRENT_TIMESTAMP'), allowNull: true, field: "updated_at" },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DB.fn('NOW'),
+        allowNull: false
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DB.fn('NOW'),
+        allowNull: false
+    },
     fullName: {
         type: DataTypes.VIRTUAL,
         get() {
@@ -24,36 +32,6 @@ Users.init({
 }, {
     sequelize: DB,
     tableName: 'users',
-    //schema: "gusamped_schema",
-    //timestamps: false,
 });
-  
-
-// Users.init({
-//     //id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-//     id: { type: DataTypes.UUID, primaryKey: true, allowNull: false, defaultValue: DataTypes.UUIDV4 },
-//     //firstName: { type: DataTypes.STRING, allowNull: false },
-//     //lastName: { type: DataTypes.STRING, allowNull: false },
-//     phoneNumber: { type: DataTypes.STRING, allowNull: false },
-//     email: { type: DataTypes.STRING, allowNull: false, unique: true },
-//     password: { type: DataTypes.STRING, allowNull: false },
-//     // createdAt: { type: 'TIMESTAMP', defaultValue: DB.literal('CURRENT_TIMESTAMP'), allowNull: true, field: "created_at" },
-//     // updatedAt: { type: 'TIMESTAMP', defaultValue: DB.literal('CURRENT_TIMESTAMP'), allowNull: true, field: "updated_at" },
-//     // fullName: {
-//     //     type: DataTypes.VIRTUAL,
-//     //     get() {
-//     //         return `${this.firstName} ${this.lastName}`
-//     //     },
-//     //     set(value) {
-//     //         throw new Error('Do not try to set the `fullName` value!')
-//     //     }
-//     // }
-// }, {
-//     sequelize: DB,
-//     tableName: 'users',
-//     schema: "gusamped_schema",
-//     timestamps: false,
-// });
-
 
 module.exports = { Users };

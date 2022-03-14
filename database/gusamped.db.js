@@ -32,11 +32,12 @@ sequelize
   });
 
 
-// sequelize.sync({ force: true })
-//   .then(function () {
-//     console.log('Connected Success')
-//   })
-//   .catch(function (err) {
-//     console.log('Connection Sequelize Error! : ' + err)
-//   })
+sequelize.sync({ alter: true })
+  .then(function () {
+    console.log('All models were synchronized successfully.')
+  })
+  .catch(function (err) {
+    console.log('Connection Sequelize Error! : ' + err)
+  })
+  
 module.exports = { DB: sequelize };

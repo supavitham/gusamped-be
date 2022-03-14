@@ -10,14 +10,16 @@ class UnitProduct extends Model {
 UnitProduct.init({
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
     nameTH: { type: DataTypes.STRING, allowNull: false },
-    nameEN: { type: DataTypes.STRING, allowNull: false },
+    nameEN: { type: DataTypes.STRING, allowNull: true },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: DB.fn('NOW'),
+        allowNull: false
     },
     updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DB.fn('NOW'),
+        allowNull: false
     },
 }, {
     sequelize: DB,

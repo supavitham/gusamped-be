@@ -1,18 +1,21 @@
 const { Model, DataTypes } = require('sequelize')
 const { DB } = require('../database/gusamped.db')
 
-class SubType extends Model {
+class ProductGroup extends Model {
     static associate(models) {
+        this.belongsTo(models.Category, { foreignKey: 'categoryID', as: 'category' });
         this.belongsTo(models.CategoryType, { foreignKey: 'categoryTypeID', as: 'category_type' });
-        this.hasMany(models.ProductGroup, { foreignKey: 'subTypeID', as: 'product_group' });
+        this.belongsTo(models.SubType, { foreignKey: 'subTypeID', as: 'sub_type' });
+        this.belongsTo(models.ProductMaster, { foreignKey: 'product_mst_id', as: 'product_master' });
     }
 }
 
-SubType.init({
+ProductGroup.init({
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-    nameTH: { type: DataTypes.STRING, allowNull: false },
-    nameEN: { type: DataTypes.STRING, allowNull: true },
+    categoryID: { type: DataTypes.INTEGER, allowNull: false },
     categoryTypeID: { type: DataTypes.INTEGER, allowNull: true },
+    subTypeID: { type: DataTypes.INTEGER, allowNull: true },
+    product_mst_id: { type: DataTypes.INTEGER, allowNull: false },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: DB.fn('NOW'),
@@ -25,8 +28,8 @@ SubType.init({
     },
 }, {
     sequelize: DB,
-    tableName: 'sub_type',
-    modelName: 'sub_type',
+    tableName: 'product_group',
+    modelName: 'product_group',
 })
 
-module.exports = { SubType }
+module.exports = { ProductGroup }
