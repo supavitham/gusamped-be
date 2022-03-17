@@ -20,7 +20,7 @@ module.exports.addSubType = async (req, res, next) => {
 
         const resData = await SubType.create({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
             categoryTypeID: categoryTypeID || null,
         });
 
@@ -43,7 +43,7 @@ module.exports.updateSubType = async (req, res, next) => {
 
         const resData = await SubType.update({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
             categoryTypeID: categoryTypeID || null,
 
         }, { where: { id: id } });

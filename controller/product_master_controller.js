@@ -15,16 +15,22 @@ module.exports.addProductMaster = async (req, res, next) => {
                 })
         });
 
+        let token = req.headers['authorization'].split(' ')[1]
+
+        var user = await getUserFromToken(token);
+        var resUser = await checkEmail(user);
+
         await ProductMaster.sync(!checkTableExist || checkTableExist == 0 ? { force: true } : { alter: true })
 
         const resData = await ProductMaster.create({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
             price: price || null,
             model: model || null,
             description: description || null,
             remark: remark || null,
-            unitID: unitID || null
+            unitID: unitID || null,
+            userID: resUser.id,
         });
 
         res.status(200).json({ message: "add product success", data: resData });
@@ -46,7 +52,7 @@ module.exports.updateProductMaster = async (req, res, next) => {
 
         const resData = await ProductMaster.update({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
             price: price || null,
             model: model || null,
             description: description || null,

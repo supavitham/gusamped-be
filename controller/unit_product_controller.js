@@ -19,7 +19,7 @@ module.exports.addUnitProduct = async (req, res, next) => {
 
         const resData = await UnitProduct.create({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
         });
 
         res.status(200).json({ message: "add unit product success", data: resData });
@@ -41,7 +41,7 @@ module.exports.updateUnitProduct = async (req, res, next) => {
 
         const resData = await UnitProduct.update({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
 
         }, { where: { id: id } });
 

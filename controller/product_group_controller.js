@@ -12,10 +12,14 @@ module.exports.categorizeProduct = async (req, res, next) => {
 
             throw 'categoryID and product_mst_id not null';
         }
+        let token = req.headers['authorization'].split(' ')[1]
+
+        var user = await getUserFromToken(token);
+        var resUser = await checkEmail(user);
 
         var resData;
 
-        if (id == null || id == '') {
+        if (id == null || id == '') { // new
 
             let checkTableExist = await new Promise((resolve, reject) => {
                 ProductGroup.count()
@@ -33,10 +37,11 @@ module.exports.categorizeProduct = async (req, res, next) => {
                 categoryTypeID: categoryTypeID || null,
                 subTypeID: subTypeID || null,
                 product_mst_id: product_mst_id,
+                userID: resUser.id,
             });
             res.status(200).json({ message: "add categorize product success", data: resData });
 
-        } else {
+        } else { // update
 
             await ProductGroup.sync({ alter: true })
 
@@ -45,6 +50,7 @@ module.exports.categorizeProduct = async (req, res, next) => {
                 categoryTypeID: categoryTypeID || null,
                 subTypeID: subTypeID || null,
                 product_mst_id: product_mst_id,
+                userID: resUser.id,
             }, { where: { id: id } });
 
             if (resData[0] == 1) {
@@ -64,7 +70,7 @@ module.exports.categorizeProduct = async (req, res, next) => {
 
 module.exports.categorizeByProduct = async (req, res, next) => {
     try {
-        const { productID } = req.query;
+        const { product_mst_id } = req.query;
         console.log("---------- getCategorizeProduct controller ----------", req.query)
 
         const result = await DB.query(
@@ -82,7 +88,7 @@ module.exports.categorizeByProduct = async (req, res, next) => {
             {
                 type: QueryTypes.SELECT,
                 replacements: {
-                    p_product_mst_id: productID,
+                    p_product_mst_id: product_mst_id,
                 },
 
             }

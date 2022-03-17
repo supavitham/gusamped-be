@@ -19,7 +19,7 @@ module.exports.addCategoryType = async (req, res, next) => {
 
         const resData = await CategoryType.create({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
             categoryID: categoryID || null,
         });
 
@@ -42,7 +42,7 @@ module.exports.updateCategoryType = async (req, res, next) => {
 
         const resData = await CategoryType.update({
             nameTH: nameTH,
-            nameEN: nameEN,
+            nameEN: nameEN || null,
             categoryID: categoryID || null,
 
         }, { where: { id: id } });

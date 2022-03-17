@@ -7,6 +7,7 @@ class ProductGroup extends Model {
         this.belongsTo(models.CategoryType, { foreignKey: 'categoryTypeID', as: 'category_type' });
         this.belongsTo(models.SubType, { foreignKey: 'subTypeID', as: 'sub_type' });
         this.belongsTo(models.ProductMaster, { foreignKey: 'product_mst_id', as: 'product_master' });
+        this.belongsTo(models.Users, { foreignKey: 'userID', as: 'users' });
     }
 }
 
@@ -16,6 +17,7 @@ ProductGroup.init({
     categoryTypeID: { type: DataTypes.INTEGER, allowNull: true },
     subTypeID: { type: DataTypes.INTEGER, allowNull: true },
     product_mst_id: { type: DataTypes.INTEGER, allowNull: false },
+    userID: { type: DataTypes.UUID, allowNull: false },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: DB.fn('NOW'),
