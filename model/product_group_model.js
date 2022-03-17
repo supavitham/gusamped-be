@@ -3,11 +3,11 @@ const { DB } = require('../database/gusamped.db')
 
 class ProductGroup extends Model {
     static associate(models) {
-        this.belongsTo(models.Category, { foreignKey: 'categoryID', as: 'category' });
-        this.belongsTo(models.CategoryType, { foreignKey: 'categoryTypeID', as: 'category_type' });
-        this.belongsTo(models.SubType, { foreignKey: 'subTypeID', as: 'sub_type' });
-        this.belongsTo(models.ProductMaster, { foreignKey: 'product_mst_id', as: 'product_master' });
-        this.belongsTo(models.Users, { foreignKey: 'userID', as: 'users' });
+        this.belongsTo(models.Category, { foreignKey: 'fk_categoryID', targetKey: 'categoryID' });
+        this.belongsTo(models.CategoryType, { foreignKey: 'fk_categoryTypeID', targetKey: 'categoryTypeID' });
+        this.belongsTo(models.SubType, { foreignKey: 'fk_subTypeID', targetKey: 'subTypeID' });
+        this.belongsTo(models.ProductMaster, { foreignKey: 'fk_product_mst_id', targetKey: 'product_mst_id' });
+        this.belongsTo(models.Users, { foreignKey: 'fk_userID', targetKey: 'userID' });
     }
 }
 

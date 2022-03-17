@@ -2,12 +2,13 @@ const { Model, DataTypes } = require('sequelize')
 const { DB } = require('../database/gusamped.db')
 
 class Users extends Model {
+
     static associate(models) {
-        this.hasOne(models.Merchant, { foreignKey: 'userID', as: 'merchant' });
-        this.hasMany(models.Category, { foreignKey: 'userID', as: 'category' });
-        this.hasMany(models.ProductMaster, { foreignKey: 'userID', as: 'product_master' });
-        this.hasMany(models.ProductGroup, { foreignKey: 'userID', as: 'product_group' });
-        this.hasMany(models.Brands, { foreignKey: 'userID', as: 'brands' });
+        this.hasOne(models.Merchant, { foreignKey: 'fk_userID', targetKey: 'userID' });
+        this.hasMany(models.Category, { foreignKey: 'fk_userID2', targetKey: 'userID' });
+        this.hasMany(models.ProductMaster, { foreignKey: 'fk_userID3', targetKey: 'userID' });
+        this.hasMany(models.ProductGroup, { foreignKey: 'fk_userID4', targetKey: 'userID' });
+        this.hasMany(models.Brands, { foreignKey: 'fk_userID5', targetKey: 'userID' });
     }
 }
 

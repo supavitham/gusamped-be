@@ -4,7 +4,7 @@ const { DB } = require('../database/gusamped.db')
 class Merchant extends Model {
 
     static associate(models) {
-        this.belongsTo(models.Users, { foreignKey: 'userID', as: 'users' });
+        this.belongsTo(models.Users, { foreignKey: 'fk_userID', targetKey: 'userID' });
     }
 }
 

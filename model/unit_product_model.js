@@ -3,7 +3,7 @@ const { DB } = require('../database/gusamped.db')
 
 class UnitProduct extends Model {
     static associate(models) {
-        this.hasMany(models.ProductMaster, { foreignKey: 'unitID', as: 'product_master' });
+        this.hasMany(models.ProductMaster, { foreignKey: 'fk_unitID', targetKey: 'unitID' });
     }
 }
 

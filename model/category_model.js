@@ -3,9 +3,9 @@ const { DB } = require('../database/gusamped.db');
 class Category extends Model {
 
     static associate(models) {
-        this.hasMany(models.CategoryType, { foreignKey: 'categoryID', as: 'category_type' });
-        this.hasMany(models.ProductGroup, { foreignKey: 'categoryID', as: 'product_group' });
-        this.belongsTo(models.Users, { foreignKey: 'userID', as: 'users' });
+        this.hasMany(models.CategoryType, { foreignKey: 'fk_categoryID', targetKey: 'categoryID' });
+        this.hasMany(models.ProductGroup, { foreignKey: 'fk_categoryID2', targetKey: 'categoryID' });
+        this.belongsTo(models.Users, { foreignKey: 'fk_userID', targetKey: 'userID' });
     }
 }
 

@@ -3,10 +3,10 @@ const { DB } = require('../database/gusamped.db')
 
 class ProductMaster extends Model {
     static associate(models) {
-        this.hasMany(models.ProductGroup, { foreignKey: 'product_mst_id', as: 'product_group' });
-        this.belongsTo(models.UnitProduct, { foreignKey: 'unitID', as: 'unit_product' });
-        this.belongsTo(models.Users, { foreignKey: 'userID', as: 'users' });
-        this.belongsTo(models.Users, { foreignKey: 'brandID', as: 'brands' });
+        this.hasMany(models.ProductGroup, { foreignKey: 'fk_product_mst_id', targetKey: 'product_mst_id' });
+        this.belongsTo(models.UnitProduct, { foreignKey: 'fk_unitID', targetKey: 'unitID' });
+        this.belongsTo(models.Users, { foreignKey: 'fk_userID', targetKey: 'userID' });
+        this.belongsTo(models.Brands, { foreignKey: 'fk_brandID', targetKey: 'brandID' });
     }
 }
 

@@ -3,8 +3,8 @@ const { DB } = require('../database/gusamped.db')
 
 class SubType extends Model {
     static associate(models) {
-        this.belongsTo(models.CategoryType, { foreignKey: 'categoryTypeID', as: 'category_type' });
-        this.hasMany(models.ProductGroup, { foreignKey: 'subTypeID', as: 'product_group' });
+        this.belongsTo(models.CategoryType, { foreignKey: 'fk_categoryTypeID', targetKey: 'categoryTypeID' });
+        this.hasMany(models.ProductGroup, { foreignKey: 'fk_subTypeID', targetKey: 'subTypeID' });
     }
 }
 
