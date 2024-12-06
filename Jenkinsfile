@@ -4,6 +4,7 @@ pipeline {
     environment {
         // กำหนดตัวแปรสิ่งแวดล้อม เช่น การตั้งค่าที่อยู่ของ NodeJS
         NODE_HOME = tool name: 'NodeJS', type: 'NodeJSInstallation'
+        PATH = "${NODE_HOME}/bin:${env.PATH}" // เพิ่ม node และ npm ใน PATH
     }
 
     stages {
