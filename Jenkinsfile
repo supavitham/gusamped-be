@@ -20,8 +20,8 @@ pipeline {
                 script {
                     sh 'node -v'  // พิมพ์เวอร์ชันของ Node.js ที่ใช้งาน
                 }
-         
-        }       
+            }      
+        }
 
         stage('Install Dependencies') {
             steps {
