@@ -15,6 +15,14 @@ pipeline {
             }
         }
 
+        stage('Check Node Version') {
+            steps {
+                script {
+                    sh 'node -v'  // พิมพ์เวอร์ชันของ Node.js ที่ใช้งาน
+                }
+         
+        }       
+
         stage('Install Dependencies') {
             steps {
                 // ติดตั้ง dependencies ด้วย npm
